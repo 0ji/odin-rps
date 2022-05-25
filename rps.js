@@ -1,16 +1,18 @@
 // rock = 0, paper = 1, scissors = 2
-let selections = ['Rock', 'Paper', 'Scissors']
+let selections = ['rock', 'paper', 'scissors']
 function computerPlay() {
     // genereate random integer (choice) between 0-2
     let choice = Math.floor(Math.random() * 3);
     return selections[choice];
 }
 
+// plays a single round for rps
 function playRound(playerSelection, computerSelection) {
-    playerSelection = playerSelection.toLowerCase();
-    computerSelection = computerSelection.toLowerCase();
+    // playerSelection = playerSelection.toLowerCase();
+    // computerSelection = computerSelection.toLowerCase();
     console.log("Player: " + playerSelection + ", Computer: " + computerSelection)
 
+    // check for tie first
     if (playerSelection == computerSelection) {
         return "Tie! Both chose " + playerSelection; 
     }
@@ -41,6 +43,34 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-for (let i=0; i<5; i++) {
-    console.log(playRound(computerPlay(), computerPlay()));
+function validateChoice(choice) {
+    choice = choice.toLowerCase();
+    let found = false;
+    for (let i in selections) {
+        if (choice == selections[i]) {
+            found = true;
+        }
+    }
+    return found;
 }
+function game() {
+    // play 5 rounds
+    for (let i = 0; i < 5; i++) {
+        let validChoice = false;
+        while (validChoice == false) {
+            let choice = prompt("Please enter a choice (rock, paper, scissors): ");
+            // check if valid
+            if (!validateChoice(choice)) {
+                alert("You've entered an invalid choice. Please try again.");
+            // if valid choice, then play a round
+            } else {
+                validChoice = true;
+                let result = playRound(choice, computerPlay());
+                console.log(result);
+                alert(result);
+            }
+        }
+     }
+}
+
+game();
