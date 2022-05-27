@@ -17,6 +17,7 @@ function playRound(playerSelection, computerSelection) {
         return "Tie! Both chose " + playerSelection; 
     }
 
+    playerSelection = playerSelection.toLowerCase();
     switch(playerSelection) {
         case 'rock':
             switch (computerSelection) {
@@ -45,13 +46,13 @@ function playRound(playerSelection, computerSelection) {
 
 function validateChoice(choice) {
     choice = choice.toLowerCase();
-    let found = false;
-    for (let i in selections) {
-        if (choice == selections[i]) {
-            found = true;
+    for (const validChoice of selections) {
+        if (choice == validChoice) {
+            return true;
         }
+        console.log("comparing " + choice + " to " + validChoice)
     }
-    return found;
+    return false;
 }
 function game() {
     // play 5 rounds
